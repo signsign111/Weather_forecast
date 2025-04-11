@@ -3,67 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날씨 정보</title>
+    <title>날씨 정보 바로가기</title>
     <style>
         body {
             font-family: sans-serif;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
         }
-        #weather-info {
-            margin-top: 20px;
-            font-size: 1.2rem;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 1rem;
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         button {
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 15px 30px;
+            font-size: 1.2rem;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>날씨 정보</h1>
-    <input type="text" id="city" placeholder="도시 이름을 입력하세요">
-    <button onclick="getWeather()">날씨 보기</button>
-    <div id="weather-info"></div>
+    <div class="container">
+        <h1>날씨 정보를 확인하세요</h1>
+        <button onclick="goToWeatherSite()">날씨 사이트로 이동</button>
+    </div>
 
     <script>
-        const apiKey = 'YOUR_API_KEY'; // 여기에 발급받은 API 키를 입력하세요.
-
-        function getWeather() {
-            const city = document.getElementById('city').value;
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=kr`;
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('날씨 정보를 가져오는 데 실패했습니다.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const { name, main, weather } = data;
-                    const temperature = main.temp;
-                    const description = weather[0].description;
-
-                    const weatherInfo = `
-                        <h2>${name}의 날씨</h2>
-                        <p>온도: ${temperature}℃</p>
-                        <p>날씨: ${description}</p>
-                    `;
-                    document.getElementById('weather-info').innerHTML = weatherInfo;
-                })
-                .catch(error => {
-                    document.getElementById('weather-info').innerHTML = '날씨 정보를 가져오는 데 실패했습니다.';
-                    console.error(error);
-                });
+        function goToWeatherSite() {
+            window.location.href = 'https://www.weather.go.kr/w/weather/current/current-conditions.do'; // 기상청 날씨누리 웹사이트 주소
         }
     </script>
 </body>
